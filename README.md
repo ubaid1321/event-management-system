@@ -105,6 +105,62 @@ with no team since they work across all of them.
 
 ---
 
+## Deploying to Netlify
+
+Config lives in `netlify.toml`. Nothing else in the repo needs changing.
+
+### 1. Connect the repo
+
+Netlify → **Add new site** → **Import an existing project** → GitHub →
+`event-management-system`. Netlify reads `netlify.toml`, so leave the build
+command and publish directory as it detects them.
+
+### 2. Set the environment variables
+
+**Site configuration → Environment variables.** Add both:
+
+| Key | Value |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://<ref>.supabase.co` — no trailing slash, no `/rest/v1` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the publishable / anon key |
+
+Never add the `service_role` key. Nothing here uses it, and `NEXT_PUBLIC_*`
+values are served to the browser.
+
+Without these the deploy still succeeds — every page renders the setup
+checklist instead of erroring.
+
+### 3. Point Supabase at the deployed URL
+
+**Authentication → URL Configuration:**
+
+- **Site URL** → `https://your-site.netlify.app`
+- **Redirect URLs** → add `https://your-site.netlify.app/**`, and
+  `https://deploy-preview-*--your-site.netlify.app/**` if you want previews to
+  work
+
+This matters for password reset and confirmation emails, which otherwise send
+people to `localhost:3000`.
+
+### 4. Check that Proxy ran
+
+Next 16 renamed Middleware to Proxy (`src/proxy.ts`), and the Next docs list
+adapter support for it as "platform-specific". Verify after the first deploy:
+
+1. Open the site signed out — you should land on `/login`
+2. Sign in, then leave the tab for over an hour and reload
+
+Step 1 works either way: `src/app/(app)/layout.tsx` calls `requireSession()`,
+so protected pages redirect on their own even if Proxy never runs. Access
+control does not depend on it.
+
+Step 2 is the one that needs Proxy. It refreshes the Supabase access token on
+each navigation; without it the token expires after about an hour and you get
+signed out instead of silently renewed. If that happens, check the Netlify Next
+Runtime version — older releases only look for `middleware.ts`.
+
+---
+
 ## Notes for whoever picks this up next
 
 **Dates.** `events.starts_at` / `ends_at` are stored in UTC. The event form

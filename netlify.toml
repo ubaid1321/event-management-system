@@ -1,0 +1,32 @@
+# Netlify configuration
+#
+# Netlify auto-detects Next.js and installs @netlify/plugin-nextjs, which
+# handles SSR, Server Actions and the App Router. It is declared explicitly
+# here so the build does not depend on auto-detection.
+#
+# Environment variables are NOT set here — they belong in the Netlify UI under
+# Site configuration → Environment variables, so keys never enter git:
+#   NEXT_PUBLIC_SUPABASE_URL
+#   NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Match the local toolchain. Next 16 requires Node 20+.
+  NODE_VERSION = "22"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Deploy previews and branch builds get their own URLs. Supabase must be told
+# about them (Authentication → URL Configuration → Redirect URLs) or password
+# reset and confirmation links will bounce to the production site instead.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
