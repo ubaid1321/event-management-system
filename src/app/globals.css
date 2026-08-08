@@ -1,26 +1,270 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ==========================================================================
+   VMI Collective — design tokens
+   Direction: "instrument". Cool paper ground, indigo ink chrome, brass accent.
+   Type: Fraunces (display, restrained) / Archivo (UI) / IBM Plex Mono (data).
+   ========================================================================== */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --ground: #eceef2;
+  --surface: #ffffff;
+  --surface-2: #f6f7f9;
+  --line: #dde1e8;
+  --line-strong: #c6ccd6;
+
+  --ink: #111a2b;
+  --ink-2: #47526a;
+  --ink-3: #78849b;
+
+  --brass: #9a6b15;
+  --brass-soft: #f2e7d1;
+  --jade: #1b6e52;
+  --jade-soft: #dcefe6;
+  --clay: #9e3a26;
+  --clay-soft: #f6e2dd;
+  --azure: #23557f;
+  --azure-soft: #dee9f3;
+
+  --rail: #111a2b;
+  --rail-2: #0b1322;
+  --rail-ink: #e8ebf1;
+  --rail-ink-2: #8e9ab2;
+  --rail-line: #253148;
+
+  --focus: #9a6b15;
+
+  --radius-card: 10px;
+  --radius-control: 6px;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --ground: #0a1120;
+    --surface: #121c2e;
+    --surface-2: #16223a;
+    --line: #223047;
+    --line-strong: #2f3f5b;
+
+    --ink: #e9edf5;
+    --ink-2: #9fadc4;
+    --ink-3: #6e7e99;
+
+    --brass: #d9a441;
+    --brass-soft: #2b2417;
+    --jade: #4fbf93;
+    --jade-soft: #14291f;
+    --clay: #e0725a;
+    --clay-soft: #2c1a15;
+    --azure: #6fa8dc;
+    --azure-soft: #15212e;
+
+    --rail: #070d18;
+    --rail-2: #050a13;
+    --rail-ink: #e9edf5;
+    --rail-ink-2: #7e8ca6;
+    --rail-line: #1b2537;
+
+    --focus: #d9a441;
   }
 }
 
+:root[data-theme="dark"] {
+  --ground: #0a1120;
+  --surface: #121c2e;
+  --surface-2: #16223a;
+  --line: #223047;
+  --line-strong: #2f3f5b;
+
+  --ink: #e9edf5;
+  --ink-2: #9fadc4;
+  --ink-3: #6e7e99;
+
+  --brass: #d9a441;
+  --brass-soft: #2b2417;
+  --jade: #4fbf93;
+  --jade-soft: #14291f;
+  --clay: #e0725a;
+  --clay-soft: #2c1a15;
+
+  --rail: #070d18;
+  --rail-2: #050a13;
+  --rail-ink: #e9edf5;
+  --rail-ink-2: #7e8ca6;
+  --rail-line: #1b2537;
+
+  --focus: #d9a441;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-jade: var(--jade);
+  --color-jade-soft: var(--jade-soft);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-azure: var(--azure);
+  --color-azure-soft: var(--azure-soft);
+  --color-rail: var(--rail);
+  --color-rail-2: var(--rail-2);
+  --color-rail-ink: var(--rail-ink);
+  --color-rail-ink-2: var(--rail-ink-2);
+  --color-rail-line: var(--rail-line);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
+
+  --radius-card: 10px;
+  --radius-control: 6px;
+}
+
+* {
+  border-color: var(--line);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular figures everywhere numbers are compared against each other. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* The eyebrow/label voice of the whole product: mono, tracked out, small. */
+.label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@layer components {
+  .input {
+    @apply h-10 w-full rounded-[var(--radius-control)] border border-line bg-surface px-3 text-[0.9375rem] text-ink placeholder:text-ink-3;
+    @apply disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3;
+  }
+
+  .textarea {
+    @apply w-full rounded-[var(--radius-control)] border border-line bg-surface px-3 py-2.5 text-[0.9375rem] leading-relaxed text-ink placeholder:text-ink-3;
+    @apply disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-ink-3;
+  }
+
+  /* Tailwind v4 cannot @apply a custom class, so the shared button shape is a
+     plain declaration block that each variant repeats via :is(). */
+  .btn-primary,
+  .btn-secondary,
+  .btn-quiet {
+    display: inline-flex;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-control);
+    padding-inline: 1rem;
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: color 150ms, background-color 150ms, border-color 150ms, opacity 150ms;
+  }
+
+  .btn-primary {
+    @apply bg-brass text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .btn-secondary {
+    @apply border border-line-strong bg-surface text-ink-2 hover:border-ink-3 hover:text-ink disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .btn-quiet {
+    @apply text-ink-3 hover:text-ink;
+    padding-inline: 0.5rem;
+  }
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Meridian rule — the signature device. A ruled navigational scale used for
+   the countdown band and, faintly, as the login page's ground.
+   -------------------------------------------------------------------------- */
+.meridian-ticks {
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0 1px,
+    transparent 1px 100%
+  );
+  background-size: 12px 100%;
+  opacity: 0.28;
+}
+
+.meridian-field {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.028) 0 1px,
+    transparent 1px 88px
+  );
+  /* Fade the rules out at the edges so they read as a field, not as stripes. */
+  mask-image: radial-gradient(120% 90% at 50% 45%, #000 25%, transparent 100%);
+}
+
+/*
+ * Surfaces that stay dark in every theme (login, setup, the countdown band).
+ * The light-theme brass is a deep mustard that goes muddy on near-black, so
+ * these scopes borrow the dark-theme accents regardless of the active theme.
+ */
+.on-dark {
+  --brass: #d9a441;
+  --clay: #e0725a;
+  --jade: #4fbf93;
+  --focus: #d9a441;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .sweep {
+    animation: sweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
