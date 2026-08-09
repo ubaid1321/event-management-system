@@ -100,7 +100,7 @@ export function TaskItem({
   return (
     <li className="group border-b border-line last:border-b-0">
       <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-start sm:gap-4">
-        {/* Status — changeable in place, because that is the most common edit */}
+        {/* Status: changeable in place, because that is the most common edit */}
         <form action={setTaskStatus} className="shrink-0">
           <input type="hidden" name="id" value={task.id} />
           <select
@@ -222,7 +222,7 @@ export function TaskItem({
                     const load = loadByPerson?.[member.id];
                     return (
                       <option key={member.id} value={member.id}>
-                        {load === undefined ? name : `${name} — ${load} open`}
+                        {load === undefined ? name : `${name} (${load} open)`}
                       </option>
                     );
                   })}

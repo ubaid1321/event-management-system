@@ -1,6 +1,6 @@
 /**
  * VMI Collective wordmark. The rule between "VMI" and "COLLECTIVE" is the same
- * meridian device used by the countdown band — one idea, reused quietly.
+ * meridian device used by the countdown band: one idea, reused quietly.
  */
 export function Wordmark({ tone = "rail" }: { tone?: "rail" | "ink" }) {
   const primary = tone === "rail" ? "text-rail-ink" : "text-ink";

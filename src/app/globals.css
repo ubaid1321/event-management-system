@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   VMI Collective — design tokens
+   VMI Collective design tokens
    Direction: "instrument". Cool paper ground, indigo ink chrome, brass accent.
    Type: Fraunces (display, restrained) / Archivo (UI) / IBM Plex Mono (data).
    ========================================================================== */
@@ -215,7 +215,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Meridian rule — the signature device. A ruled navigational scale used for
+   Meridian rule: the signature device. A ruled navigational scale used for
    the countdown band and, faintly, as the login page's ground.
    -------------------------------------------------------------------------- */
 .meridian-ticks {

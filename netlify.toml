@@ -4,7 +4,7 @@
 # handles SSR, Server Actions and the App Router. It is declared explicitly
 # here so the build does not depend on auto-detection.
 #
-# Environment variables are NOT set here — they belong in the Netlify UI under
+# Environment variables are NOT set here. They belong in the Netlify UI under
 # Site configuration → Environment variables, so keys never enter git:
 #   NEXT_PUBLIC_SUPABASE_URL
 #   NEXT_PUBLIC_SUPABASE_ANON_KEY

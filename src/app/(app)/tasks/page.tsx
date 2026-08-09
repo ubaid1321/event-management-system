@@ -60,7 +60,7 @@ export default async function TasksPage() {
         <StatTile
           label="Delivered"
           value={
-            stats.percentDone === null ? "—" : `${stats.percentDone}%`
+            stats.percentDone === null ? "n/a" : `${stats.percentDone}%`
           }
           detail={
             stats.total > 0

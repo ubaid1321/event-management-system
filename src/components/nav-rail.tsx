@@ -33,7 +33,7 @@ export function NavRail({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Following a link is a completed intent — close the mobile drawer behind it.
+  // Following a link is a completed intent, so close the mobile drawer behind it.
   const close = () => setOpen(false);
 
   const linkClass = (href: string) =>
@@ -59,7 +59,7 @@ export function NavRail({
         <Link
           href="/overview"
           onClick={close}
-          aria-label="VMI Collective — overview"
+          aria-label="VMI Collective overview"
         >
           <Wordmark />
         </Link>
@@ -135,7 +135,7 @@ export function NavRail({
         <Link
           href="/overview"
           onClick={close}
-          aria-label="VMI Collective — overview"
+          aria-label="VMI Collective overview"
         >
           <Wordmark />
         </Link>

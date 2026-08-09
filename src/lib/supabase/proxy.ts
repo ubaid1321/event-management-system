@@ -21,7 +21,7 @@ export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   // Before Supabase is connected there is no session to refresh and nothing to
-  // protect — pages render setup instructions instead.
+  // protect. Pages render setup instructions instead.
   if (!isSupabaseConfigured) {
     return response;
   }
@@ -48,7 +48,7 @@ export async function updateSession(request: NextRequest) {
   );
 
   // Refreshes the auth token and revalidates it against the Supabase auth
-  // server. Do not remove or reorder — code between createServerClient and
+  // server. Do not remove or reorder: code between createServerClient and
   // getUser() can cause hard-to-debug random sign-outs.
   const {
     data: { user },

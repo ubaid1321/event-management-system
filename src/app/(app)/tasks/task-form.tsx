@@ -157,7 +157,7 @@ export function TaskFields({
               const load = loadByPerson?.[member.id];
               return (
                 <option key={member.id} value={member.id}>
-                  {load === undefined ? name : `${name} — ${load} open`}
+                  {load === undefined ? name : `${name} (${load} open)`}
                 </option>
               );
             })}
@@ -208,7 +208,7 @@ export function TaskFields({
       <Field
         label="Deliverable link"
         htmlFor={id("deliverable-url")}
-        hint="Where the finished work lives — a Drive folder, Figma file, doc or repo."
+        hint="Where the finished work lives: a Drive folder, Figma file, doc or repo."
       >
         <input
           id={id("deliverable-url")}

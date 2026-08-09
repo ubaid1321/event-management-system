@@ -12,5 +12,5 @@ update public.profiles
 set role = 'admin'
 where email = 'ajjitkumar@vmi-collective.in';
 
--- Check it worked — this should list you with role = admin.
+-- Check it worked. This should list you with role = admin.
 select email, full_name, role, department from public.profiles order by created_at;

@@ -1,4 +1,4 @@
-# VMI Collective — Event Management
+# VMI Collective Event Management
 
 Internal dashboard for running VMI Collective events. Currently tracking one:
 **World Wisdom Connect (WWC)**.
@@ -12,9 +12,9 @@ Next.js 16 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres + Aut
 | Page | Path | What it does |
 | --- | --- | --- |
 | Overview | `/overview` | Runway countdown, registration stats, task progress by team |
-| Tasks | `/tasks` | Every task grouped by Content / Design / Analyst / Developer |
+| Tasks | `/tasks` | Every task grouped by Content / Design / Analyst / Developer / Marketing |
 | Team | `/team` | Who has access, what team they're on, what they're carrying |
-| Event | `/events/wwc` | All WWC details — dates, venue, capacity, tickets |
+| Event | `/events/wwc` | All WWC details: dates, venue, capacity, tickets |
 | Sign in | `/login` | Email + password. No public signup. |
 
 ## Who can do what
@@ -43,9 +43,10 @@ sends it over; the reviewer either approves it or sends it back with a note
 saying what needs changing. The reviewer dropdown shows each person's open task
 count, so work goes to whoever has room for it.
 
-`in_review` is deliberately unreachable from the status dropdown — it needs a
-named reviewer, so it goes through **Send for review**. A database constraint
-enforces the same rule, so a task can never sit in review with nobody assigned.
+`in_review` is deliberately unreachable from the status dropdown. It needs a
+named reviewer, so it goes through **Send for review** instead. A database
+constraint enforces the same rule, so a task can never sit in review with
+nobody assigned to look at it.
 
 The five teams are **Content**, **Design**, **Analyst**, **Developer** and
 **Marketing**.
@@ -54,8 +55,8 @@ The five teams are **Content**, **Design**, **Analyst**, **Developer** and
 
 The Overview opens with your own queue, before anything organisation-wide:
 
-- **Waiting on your review** — first, because it's blocking someone else
-- **Assigned to you** — everything on you that isn't finished, soonest due first
+- **Waiting on your review**: shown first, because it's blocking someone else
+- **Assigned to you**: everything unfinished, soonest due first
 
 These rules are enforced in Postgres by Row Level Security, not just in the UI.
 A member cannot delete a task by calling the API directly.
@@ -74,9 +75,14 @@ the database password somewhere safe.
 Supabase Dashboard → **SQL Editor** → **New query**. Run these in order, one at
 a time:
 
-1. `supabase/migrations/0001_init.sql` — profiles, events, registrations, RLS
-2. `supabase/migrations/0002_seed_wwc.sql` — creates the WWC event row
-3. `supabase/migrations/0003_tasks.sql` — departments, tasks, task RLS
+1. `0001_init.sql` creates profiles, events, registrations and their RLS
+2. `0002_seed_wwc.sql` creates the WWC event row
+3. `0003_tasks.sql` adds departments, tasks and task RLS
+4. `0005_currency_inr.sql` prices everything in rupees
+5. `0006_backfill_profiles.sql` gives every account a profile row
+6. `0007_review_and_marketing.sql` adds the review step and the Marketing team
+
+(`0004_make_admin.sql` is step 4 below, once your account exists.)
 
 ### 3. Turn off public signup
 
@@ -92,7 +98,7 @@ URL can create an account.
 **Auto Confirm User** or you'll be waiting on a confirmation email.
 
 Then edit `supabase/migrations/0004_make_admin.sql` to use your email and run it
-in the SQL Editor. You only need to do this once — after that you can promote
+in the SQL Editor. You only need to do this once. After that you can promote
 people from the Team page.
 
 ### 5. Add your keys
@@ -106,7 +112,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
 
 Both are in **Project Settings → API Keys** (or click **Connect** at the top of
 the dashboard, which shows them pre-formatted). Never put the `service_role`
-secret key here — anything named `NEXT_PUBLIC_*` is shipped to the browser.
+secret key here. Anything named `NEXT_PUBLIC_*` is shipped to the browser.
 
 ### 6. Run it
 
@@ -128,8 +134,8 @@ Until step 5 is done, every page shows a setup checklist instead of crashing.
 2. Send them the email and password you set
 3. Refresh `/team` and use **Edit** to put them on a team and set their role
 
-The four teams are Content, Design, Analyst and Developer. Admins can be left
-with no team since they work across all of them.
+The five teams are Content, Design, Analyst, Developer and Marketing. Admins
+can be left with no team since they work across all of them.
 
 ---
 
@@ -149,13 +155,13 @@ command and publish directory as it detects them.
 
 | Key | Value |
 | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://<ref>.supabase.co` — no trailing slash, no `/rest/v1` |
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://<ref>.supabase.co` with no trailing slash, no `/rest/v1` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the publishable / anon key |
 
 Never add the `service_role` key. Nothing here uses it, and `NEXT_PUBLIC_*`
 values are served to the browser.
 
-Without these the deploy still succeeds — every page renders the setup
+Without these the deploy still succeeds; every page renders the setup
 checklist instead of erroring.
 
 ### 3. Point Supabase at the deployed URL
@@ -175,7 +181,7 @@ people to `localhost:3000`.
 Next 16 renamed Middleware to Proxy (`src/proxy.ts`), and the Next docs list
 adapter support for it as "platform-specific". Verify after the first deploy:
 
-1. Open the site signed out — you should land on `/login`
+1. Open the site signed out. You should land on `/login`
 2. Sign in, then leave the tab for over an hour and reload
 
 Step 1 works either way: `src/app/(app)/layout.tsx` calls `requireSession()`,
@@ -185,7 +191,7 @@ control does not depend on it.
 Step 2 is the one that needs Proxy. It refreshes the Supabase access token on
 each navigation; without it the token expires after about an hour and you get
 signed out instead of silently renewed. If that happens, check the Netlify Next
-Runtime version — older releases only look for `middleware.ts`.
+Runtime version; older releases only look for `middleware.ts`.
 
 ---
 
@@ -201,7 +207,7 @@ shows and accepts wall-clock time at the venue, converting through
 task has a timestamp. Don't set `completed_at` from application code.
 
 **Database types.** `src/lib/supabase/types.ts` is hand-maintained and must
-match the SQL. Every row shape is a `type`, not an `interface` — postgrest-js
+match the SQL. Every row shape is a `type`, not an `interface`, because postgrest-js
 constrains tables to `Record<string, unknown>`, and only type aliases get the
 implicit index signature that satisfies it. Using an interface silently degrades
 every query result to `never`. To regenerate instead:

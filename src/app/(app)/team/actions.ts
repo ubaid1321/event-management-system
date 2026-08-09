@@ -10,7 +10,7 @@ import { createClient } from "@/lib/supabase/server";
 /**
  * Admin edit of one teammate's roster entry: name, job title, team, role and
  * whether they are still active. Accounts themselves are created in Supabase
- * Auth — this only maintains the profile attached to them.
+ * Auth. This only maintains the profile attached to them.
  */
 export async function updateTeamMember(
   _prevState: FormState,
@@ -43,7 +43,7 @@ export async function updateTeamMember(
     return { error: "Role must be admin or member.", ok: false };
   }
 
-  // An admin must not remove their own admin rights — that can lock everyone
+  // An admin must not remove their own admin rights, which can lock everyone
   // out of assigning work with no way back except SQL.
   if (id === session.userId && roleValue !== "admin") {
     return {

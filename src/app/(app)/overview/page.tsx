@@ -79,7 +79,7 @@ export default async function OverviewPage() {
           value={
             event.capacity && event.capacity > 0
               ? formatNumber(stats.seatsLeft ?? 0)
-              : "—"
+              : "n/a"
           }
           detail={
             event.capacity && event.capacity > 0

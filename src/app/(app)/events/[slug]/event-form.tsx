@@ -9,11 +9,11 @@ import { utcToZonedInput } from "@/lib/format";
 import type { EventRow } from "@/lib/supabase/types";
 
 const STATUS_OPTIONS = [
-  { value: "planning", label: "Planning — not announced yet" },
+  { value: "planning", label: "Planning: not announced yet" },
   { value: "open", label: "Registration open" },
   { value: "live", label: "Happening now" },
   { value: "closed", label: "Registration closed" },
-  { value: "archived", label: "Archived — finished" },
+  { value: "archived", label: "Archived: finished" },
 ];
 
 function Submit() {

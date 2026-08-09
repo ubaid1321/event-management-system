@@ -27,7 +27,7 @@ export default async function LoginPage({
 
   return (
     <main className="on-dark relative flex min-h-dvh items-center justify-center overflow-hidden bg-rail px-5 py-12">
-      {/* Ambient meridian field — the same ruled language as the countdown. */}
+      {/* Ambient meridian field: the same ruled language as the countdown. */}
       <div aria-hidden className="meridian-field absolute inset-0" />
       <div
         aria-hidden

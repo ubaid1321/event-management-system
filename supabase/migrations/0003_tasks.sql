@@ -4,12 +4,12 @@
 -- Run after 0001_init.sql and 0002_seed_wwc.sql.
 --
 -- Adds:
---   * profiles.department  — Content / Design / Analyst / Developer
---   * tasks                — assigned work with a deliverable link
+--   * profiles.department  : Content / Design / Analyst / Developer
+--   * tasks                : assigned work with a deliverable link
 --
 -- Roles:
---   admin  — assigns work, edits and deletes any task, manages the event
---   member — adds tasks, updates and completes tasks assigned to them
+--   admin  : assigns work, edits and deletes any task, manages the event
+--   member : adds tasks, updates and completes tasks assigned to them
 -- =============================================================================
 
 -- ---------------------------------------------------------------------------
@@ -123,7 +123,7 @@ as $$
   );
 $$;
 
--- Everyone signed in sees the whole board. Small collective — the teams need
+-- Everyone signed in sees the whole board. Small collective, so the teams need
 -- to see each other's work to coordinate.
 drop policy if exists "Staff read tasks" on public.tasks;
 create policy "Staff read tasks"
@@ -135,7 +135,7 @@ create policy "Staff create tasks"
   on public.tasks for insert to authenticated
   with check (created_by = (select auth.uid()) or public.is_admin());
 
--- Admins edit anything. Members edit tasks they own or created — which is
+-- Admins edit anything. Members edit tasks they own or created, which is
 -- what lets them move their own work along and attach the deliverable link.
 drop policy if exists "Staff update tasks" on public.tasks;
 create policy "Staff update tasks"

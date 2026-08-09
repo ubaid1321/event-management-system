@@ -1,5 +1,5 @@
 -- =============================================================================
--- VMI Collective — Event Management System
+-- VMI Collective Event Management System
 -- Migration 0001: profiles, events, registrations
 --
 -- Run this in the Supabase SQL Editor (Dashboard → SQL Editor → New query),
@@ -20,7 +20,7 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- profiles — one row per dashboard user, mirrored from auth.users
+-- profiles: one row per dashboard user, mirrored from auth.users
 -- ---------------------------------------------------------------------------
 create table if not exists public.profiles (
   id         uuid primary key references auth.users (id) on delete cascade,

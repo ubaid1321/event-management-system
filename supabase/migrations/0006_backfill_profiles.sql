@@ -35,8 +35,8 @@ set role = 'admin'
 where email = 'ajjitkumar@vmi-collective.in';
 
 -- 4. Check. You should appear with role = admin.
---    If "admin_count" is 0, the email above does not match any account —
---    run "select email from auth.users;" and use exactly what you see there.
+--    If "admin_count" is 0, the email above matches no account. Run
+--    "select email from auth.users;" and use exactly what you see there.
 select
   (select count(*) from public.profiles where role = 'admin') as admin_count,
   (select count(*) from auth.users)                           as auth_users,

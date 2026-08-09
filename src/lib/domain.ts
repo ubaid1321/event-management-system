@@ -7,7 +7,7 @@ import type {
 export interface DepartmentMeta {
   value: Department;
   label: string;
-  /** What this team is responsible for — used on empty boards. */
+  /** What this team is responsible for. Used on empty boards. */
   remit: string;
   text: string;
   bg: string;
@@ -74,7 +74,7 @@ export function departmentMeta(value: Department | null | undefined) {
 export interface TaskStatusMeta {
   value: TaskStatus;
   label: string;
-  /** Column subtitle on the board — says what being here means. */
+  /** Column subtitle on the board. Says what being here means. */
   hint: string;
   className: string;
 }

@@ -8,7 +8,7 @@
 export interface FormState {
   /** Message to show the person, or null when nothing went wrong. */
   error: string | null;
-  /** True once a save has landed — forms use this to close themselves. */
+  /** True once a save has landed. Forms use this to close themselves. */
   ok: boolean;
 }
 

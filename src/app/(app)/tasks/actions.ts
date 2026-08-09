@@ -19,7 +19,7 @@ function text(formData: FormData, key: string) {
   return trimmed.length > 0 ? trimmed : null;
 }
 
-/** Only http(s) links — a deliverable link is something you click. */
+/** Only http(s) links. A deliverable link is something you click. */
 function link(formData: FormData, key: string) {
   const value = text(formData, key);
   if (!value) return { url: null as string | null, error: null as string | null };
@@ -163,7 +163,7 @@ function revalidateBoards() {
 /**
  * Quick status change straight from the board.
  *
- * "in_review" is deliberately not reachable here — it needs a reviewer, so it
+ * "in_review" is deliberately not reachable here. It needs a reviewer, so it
  * goes through Send for review instead.
  */
 export async function setTaskStatus(formData: FormData) {

@@ -194,7 +194,7 @@ export function progressBetween(
  * omits "UTC" entirely and ships legacy aliases (Asia/Calcutta, not
  * Asia/Kolkata), while Chrome lists the canonical modern names and includes
  * UTC. Rendering a <select> whose value is missing from the options makes the
- * server and client disagree about which option is selected — a hydration
+ * server and client disagree about which option is selected, a hydration
  * mismatch. So: always fold in UTC and the zone actually in use.
  */
 export function listTimeZones(current?: string | null): string[] {
@@ -213,6 +213,6 @@ export function listTimeZones(current?: string | null): string[] {
   if (current) zones.add(current);
   zones.delete("UTC");
 
-  // UTC first — it is the default and the one people reach for deliberately.
+  // UTC first: it is the default and the one people reach for deliberately.
   return ["UTC", ...[...zones].sort((a, b) => a.localeCompare(b))];
 }

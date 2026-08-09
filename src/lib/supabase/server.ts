@@ -6,7 +6,7 @@ import type { Database } from "@/lib/supabase/types";
 
 /**
  * Supabase client for Server Components, Server Actions and Route Handlers.
- * Must be created per-request — never hoisted to a module-level singleton,
+ * Must be created per-request, never hoisted to a module-level singleton,
  * because it closes over that request's cookies.
  */
 export async function createClient() {

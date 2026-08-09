@@ -34,7 +34,7 @@ export function MemberRow({
   const [editing, setEditing] = useState(false);
   const [state, formAction] = useActionState(updateTeamMember, emptyFormState);
 
-  // Close the editor once the save lands — see the note in task-item.tsx.
+  // Close the editor once the save lands. See the note in task-item.tsx.
   const [sawSave, setSawSave] = useState(state.ok);
   if (state.ok !== sawSave) {
     setSawSave(state.ok);
@@ -105,8 +105,8 @@ export function MemberRow({
                 defaultValue={member.role}
                 className="input"
               >
-                <option value="member">Member — adds and completes tasks</option>
-                <option value="admin">Admin — assigns work, edits event</option>
+                <option value="member">Member: adds and completes tasks</option>
+                <option value="admin">Admin: assigns work, edits event</option>
               </select>
             </div>
           </div>

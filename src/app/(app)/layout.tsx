@@ -10,7 +10,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
   }
 
   // requireSession redirects to /login when there is no session. The proxy
-  // does this too — this is the second lock, inside the layout that renders
+  // does this too. This is the second lock, inside the layout that renders
   // the data, so no page can leak by being reached another way.
   const session = await requireSession();
 

@@ -15,9 +15,9 @@ export function displayName(
   return profile.email?.split("@")[0] ?? null;
 }
 
-/** "AB" for Ada Bell, "A" for Ada — used by the assignee chips. */
+/** "AB" for Ada Bell, "A" for Ada. Used by the assignee chips. */
 export function initials(value: string | null | undefined) {
-  if (!value) return "—";
+  if (!value) return "?";
   const parts = value.trim().split(/\s+/).slice(0, 2);
-  return parts.map((part) => part[0]?.toUpperCase() ?? "").join("") || "—";
+  return parts.map((part) => part[0]?.toUpperCase() ?? "").join("") || "?";
 }

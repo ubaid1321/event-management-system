@@ -7,7 +7,7 @@
  *
  * Note: every row shape below is a `type`, not an `interface`. postgrest-js
  * constrains tables to `Record<string, unknown>`, and only type aliases get the
- * implicit index signature that satisfies it — an interface here silently
+ * implicit index signature that satisfies it. An interface here silently
  * degrades every query result to `never`.
  */
 
@@ -113,7 +113,7 @@ export type TaskRow = {
   updated_at: string;
 };
 
-/** Columns that accept NULL — Postgres defaults them, so they're optional. */
+/** Columns that accept NULL. Postgres defaults them, so they're optional. */
 type NullableKeys<T> = {
   [K in keyof T]-?: null extends T[K] ? K : never;
 }[keyof T];
