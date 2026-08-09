@@ -86,24 +86,7 @@ export default async function TeamPage() {
         </div>
       )}
 
-      <Card className="mt-4 p-6">
-        <h2 className="label">Adding someone</h2>
-        <ol className="mt-4 flex flex-col gap-2.5 text-[0.9375rem] leading-relaxed text-ink-2">
-          <li>
-            <span className="font-mono text-[0.75rem] text-brass">01</span>{" "}
-            In Supabase, go to Authentication → Users → Add user, and tick Auto
-            Confirm User.
-          </li>
-          <li>
-            <span className="font-mono text-[0.75rem] text-brass">02</span>{" "}
-            Send them the email and password you set. They can change it later.
-          </li>
-          <li>
-            <span className="font-mono text-[0.75rem] text-brass">03</span>{" "}
-            Refresh this page, then use Edit to put them on a team.
-          </li>
-        </ol>
-      </Card>
+   
     </>
   );
 }
