@@ -23,11 +23,39 @@ Next.js 16 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres + Aut
 | --- | --- | --- |
 | See all tasks | ✅ | ✅ |
 | Add a task | ✅ | ✅ |
-| Edit / complete a task | any task | ones assigned to or created by them |
-| Delete a task | ✅ | ❌ |
+| Edit a task | any task | ones assigned to, created by, or being reviewed by them |
+| Delete a task | any task | ones they created |
+| Approve / send back a review | any task | ones where they are the reviewer |
 | Assign work to others | ✅ | ❌ |
 | Edit the event | ✅ | ❌ |
 | Change someone's team or role | ✅ | ❌ |
+
+## How a task moves
+
+```
+todo ──▶ in progress ──▶ in review ──▶ done
+              ▲               │
+              └── changes ────┘
+```
+
+Finished work does not go straight to done. The owner picks a reviewer and
+sends it over; the reviewer either approves it or sends it back with a note
+saying what needs changing. The reviewer dropdown shows each person's open task
+count, so work goes to whoever has room for it.
+
+`in_review` is deliberately unreachable from the status dropdown — it needs a
+named reviewer, so it goes through **Send for review**. A database constraint
+enforces the same rule, so a task can never sit in review with nobody assigned.
+
+The five teams are **Content**, **Design**, **Analyst**, **Developer** and
+**Marketing**.
+
+## What you see when you sign in
+
+The Overview opens with your own queue, before anything organisation-wide:
+
+- **Waiting on your review** — first, because it's blocking someone else
+- **Assigned to you** — everything on you that isn't finished, soonest due first
 
 These rules are enforced in Postgres by Row Level Security, not just in the UI.
 A member cannot delete a task by calling the API directly.

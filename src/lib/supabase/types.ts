@@ -21,9 +21,19 @@ export type RegistrationStatus =
 
 export type UserRole = "admin" | "member";
 
-export type Department = "content" | "design" | "analyst" | "developer";
+export type Department =
+  | "content"
+  | "design"
+  | "analyst"
+  | "developer"
+  | "marketing";
 
-export type TaskStatus = "todo" | "in_progress" | "blocked" | "done";
+export type TaskStatus =
+  | "todo"
+  | "in_progress"
+  | "in_review"
+  | "blocked"
+  | "done";
 
 export type TaskPriority = "low" | "normal" | "high";
 
@@ -91,11 +101,14 @@ export type TaskRow = {
   priority: TaskPriority;
   assignee_id: string | null;
   created_by: string | null;
+  reviewer_id: string | null;
   due_on: string | null;
   deliverable_url: string | null;
   deliverable_label: string | null;
   completed_at: string | null;
   completed_by: string | null;
+  reviewed_at: string | null;
+  review_note: string | null;
   created_at: string;
   updated_at: string;
 };

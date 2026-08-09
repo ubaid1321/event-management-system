@@ -25,6 +25,8 @@
   --clay-soft: #f6e2dd;
   --azure: #23557f;
   --azure-soft: #dee9f3;
+  --plum: #6d3a72;
+  --plum-soft: #ece0ee;
 
   --rail: #111a2b;
   --rail-2: #0b1322;
@@ -58,6 +60,8 @@
     --clay-soft: #2c1a15;
     --azure: #6fa8dc;
     --azure-soft: #15212e;
+    --plum: #c294c9;
+    --plum-soft: #241a26;
 
     --rail: #070d18;
     --rail-2: #050a13;
@@ -86,6 +90,10 @@
   --jade-soft: #14291f;
   --clay: #e0725a;
   --clay-soft: #2c1a15;
+  --azure: #6fa8dc;
+  --azure-soft: #15212e;
+  --plum: #c294c9;
+  --plum-soft: #241a26;
 
   --rail: #070d18;
   --rail-2: #050a13;
@@ -113,6 +121,8 @@
   --color-clay-soft: var(--clay-soft);
   --color-azure: var(--azure);
   --color-azure-soft: var(--azure-soft);
+  --color-plum: var(--plum);
+  --color-plum-soft: var(--plum-soft);
   --color-rail: var(--rail);
   --color-rail-2: var(--rail-2);
   --color-rail-ink: var(--rail-ink);

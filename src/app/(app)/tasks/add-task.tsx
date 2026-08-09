@@ -10,6 +10,7 @@ import type { TeamMember } from "@/lib/tasks";
 interface AddTaskProps {
   eventId: string;
   team: TeamMember[];
+  loadByPerson?: Record<string, number>;
   defaultDepartment?: string;
   label?: string;
 }
@@ -17,6 +18,7 @@ interface AddTaskProps {
 export function AddTask({
   eventId,
   team,
+  loadByPerson,
   defaultDepartment,
   label = "Add task",
 }: AddTaskProps) {
@@ -52,6 +54,7 @@ export function AddTask({
       <TaskFields
         idPrefix={`new-${defaultDepartment ?? "task"}`}
         team={team}
+        loadByPerson={loadByPerson}
         defaultDepartment={defaultDepartment}
         submitLabel="Add task"
         error={state.error}

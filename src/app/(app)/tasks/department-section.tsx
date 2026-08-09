@@ -7,6 +7,7 @@ interface DepartmentSectionProps {
   meta: DepartmentMeta;
   tasks: TaskWithPeople[];
   team: TeamMember[];
+  loadByPerson: Record<string, number>;
   eventId: string;
   userId: string;
   isAdmin: boolean;
@@ -16,6 +17,7 @@ export function DepartmentSection({
   meta,
   tasks,
   team,
+  loadByPerson,
   eventId,
   userId,
   isAdmin,
@@ -52,6 +54,7 @@ export function DepartmentSection({
           <AddTask
             eventId={eventId}
             team={team}
+            loadByPerson={loadByPerson}
             defaultDepartment={meta.value}
             label="Add task"
           />
@@ -69,12 +72,15 @@ export function DepartmentSection({
               key={task.id}
               task={task}
               team={team}
+              loadByPerson={loadByPerson}
               canEdit={
                 isAdmin ||
                 task.assignee_id === userId ||
                 task.created_by === userId
               }
-              canDelete={isAdmin}
+              // Creators can withdraw what they raised; admins remove anything.
+              canDelete={isAdmin || task.created_by === userId}
+              canReview={isAdmin || task.reviewer_id === userId}
             />
           ))}
         </ul>

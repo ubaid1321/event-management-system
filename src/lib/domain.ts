@@ -52,6 +52,15 @@ export const DEPARTMENTS: DepartmentMeta[] = [
     border: "border-azure/35",
     dot: "bg-azure",
   },
+  {
+    value: "marketing",
+    label: "Marketing",
+    remit: "Outreach, campaigns, partnerships and ticket sales.",
+    text: "text-plum",
+    bg: "bg-plum-soft",
+    border: "border-plum/35",
+    dot: "bg-plum",
+  },
 ];
 
 export const DEPARTMENT_BY_VALUE = new Map(
@@ -82,6 +91,12 @@ export const TASK_STATUSES: TaskStatusMeta[] = [
     label: "In progress",
     hint: "Someone is on it",
     className: "bg-azure-soft text-azure border-azure/35",
+  },
+  {
+    value: "in_review",
+    label: "In review",
+    hint: "With a reviewer",
+    className: "bg-brass-soft text-brass border-brass/35",
   },
   {
     value: "blocked",

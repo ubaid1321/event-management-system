@@ -6,13 +6,16 @@ import { Card, EmptyNote, PageHeader, StatTile, StatusPill } from "@/components/
 import { DEPARTMENTS } from "@/lib/domain";
 import { getEventStats, getPrimaryEvent } from "@/lib/events";
 import { formatDateTime, formatMoney, formatNumber } from "@/lib/format";
-import { getTasks, summariseTasks } from "@/lib/tasks";
+import { requireSession } from "@/lib/session";
+import { getTasks, selectMyWork, summariseTasks } from "@/lib/tasks";
+import { YourWork } from "@/components/your-work";
 
 export const metadata: Metadata = {
   title: "Overview",
 };
 
 export default async function OverviewPage() {
+  const session = await requireSession();
   const event = await getPrimaryEvent();
 
   if (!event) {
@@ -37,6 +40,7 @@ export default async function OverviewPage() {
     getTasks(event.id),
   ]);
   const taskStats = summariseTasks(tasks);
+  const myWork = selectMyWork(tasks, session.userId);
   const hasRegistrations = stats.total > 0;
 
   return (
@@ -47,6 +51,9 @@ export default async function OverviewPage() {
         description={`Where ${event.name} stands today.`}
         actions={<StatusPill status={event.status} />}
       />
+
+      {/* Your own queue comes before anything organisation-wide. */}
+      <YourWork work={myWork} name={session.name} />
 
       <CountdownRule
         slug={event.slug}
@@ -153,11 +160,17 @@ export default async function OverviewPage() {
           )}
 
           <p className="mt-6 border-t border-line pt-4 text-[0.8125rem] leading-relaxed text-ink-3">
-            {taskStats.blocked > 0 || taskStats.overdue > 0
-              ? `${taskStats.blocked} blocked · ${taskStats.overdue} overdue.`
-              : taskStats.total > 0
-                ? "Nothing blocked or overdue."
-                : "Tasks are grouped by Content, Design, Analyst and Developer."}
+            {taskStats.total === 0
+              ? "Tasks are grouped by Content, Design, Analyst, Developer and Marketing."
+              : [
+                  taskStats.inReview > 0
+                    ? `${taskStats.inReview} in review`
+                    : null,
+                  taskStats.blocked > 0 ? `${taskStats.blocked} blocked` : null,
+                  taskStats.overdue > 0 ? `${taskStats.overdue} overdue` : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ") || "Nothing blocked, overdue or awaiting review."}
           </p>
         </Card>
 

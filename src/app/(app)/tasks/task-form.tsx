@@ -41,6 +41,8 @@ export interface TaskFormProps {
   idPrefix: string;
   task?: TaskRow | null;
   team: TeamMember[];
+  /** Open task count per person, so the reviewer list shows who has capacity. */
+  loadByPerson?: Record<string, number>;
   /** Locks the department when adding from inside a team's section. */
   defaultDepartment?: string;
   submitLabel: string;
@@ -52,6 +54,7 @@ export function TaskFields({
   idPrefix,
   task,
   team,
+  loadByPerson,
   defaultDepartment,
   submitLabel,
   error,
@@ -60,6 +63,9 @@ export function TaskFields({
   const id = (name: string) => `${idPrefix}-${name}`;
   const assignable = team.filter(
     (member) => member.is_active || member.id === task?.assignee_id,
+  );
+  const reviewers = team.filter(
+    (member) => member.is_active || member.id === task?.reviewer_id,
   );
 
   return (
@@ -131,6 +137,30 @@ export function TaskFields({
                 {status.label}
               </option>
             ))}
+          </select>
+        </Field>
+
+        <Field
+          label="Reviewer"
+          htmlFor={id("reviewer")}
+          hint="Who checks it when it's finished. Counts show open work."
+        >
+          <select
+            id={id("reviewer")}
+            name="reviewer_id"
+            defaultValue={task?.reviewer_id ?? ""}
+            className="input"
+          >
+            <option value="">Decide later</option>
+            {reviewers.map((member) => {
+              const name = member.full_name?.trim() || member.email;
+              const load = loadByPerson?.[member.id];
+              return (
+                <option key={member.id} value={member.id}>
+                  {load === undefined ? name : `${name} — ${load} open`}
+                </option>
+              );
+            })}
           </select>
         </Field>
 

@@ -7,7 +7,12 @@ import { DEPARTMENTS } from "@/lib/domain";
 import { getPrimaryEvent } from "@/lib/events";
 import { formatNumber } from "@/lib/format";
 import { requireSession } from "@/lib/session";
-import { getTasks, getTeam, summariseTasks } from "@/lib/tasks";
+import {
+  getTasks,
+  getTeam,
+  openTaskCountByPerson,
+  summariseTasks,
+} from "@/lib/tasks";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -33,6 +38,7 @@ export default async function TasksPage() {
 
   const [tasks, team] = await Promise.all([getTasks(event.id), getTeam()]);
   const stats = summariseTasks(tasks);
+  const loadByPerson = openTaskCountByPerson(tasks);
 
   return (
     <>
@@ -40,10 +46,17 @@ export default async function TasksPage() {
         eyebrow={event.name}
         title="Tasks"
         description="Every piece of work for the event, grouped by team. Anyone can add a task; you can move and complete the ones assigned to you."
-        actions={<AddTask eventId={event.id} team={team} label="New task" />}
+        actions={
+          <AddTask
+            eventId={event.id}
+            team={team}
+            loadByPerson={loadByPerson}
+            label="New task"
+          />
+        }
       />
 
-      <div className="mb-4 grid grid-cols-2 gap-4 xl:grid-cols-4">
+      <div className="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
         <StatTile
           label="Delivered"
           value={
@@ -60,6 +73,15 @@ export default async function TasksPage() {
           label="In progress"
           value={formatNumber(stats.inProgress)}
           detail={stats.inProgress > 0 ? "Being worked on now." : "Nothing underway."}
+        />
+        <StatTile
+          label="In review"
+          value={formatNumber(stats.inReview)}
+          detail={
+            stats.inReview > 0
+              ? "Finished, waiting on a reviewer."
+              : "Nothing awaiting sign-off."
+          }
         />
         <StatTile
           label="Blocked"
@@ -88,6 +110,7 @@ export default async function TasksPage() {
             meta={meta}
             tasks={tasks.filter((task) => task.department === meta.value)}
             team={team}
+            loadByPerson={loadByPerson}
             eventId={event.id}
             userId={session.userId}
             isAdmin={session.isAdmin}
