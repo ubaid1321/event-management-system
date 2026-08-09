@@ -12,6 +12,31 @@ import { createClient } from "@/lib/supabase/server";
  * whether they are still active. Accounts themselves are created in Supabase
  * Auth. This only maintains the profile attached to them.
  */
+/**
+ * Put one person on a team, straight from the roster row.
+ *
+ * Placing people is the single most common roster edit, and every new account
+ * starts with no team, so it gets its own one-click control rather than making
+ * an admin open the full edit form five times.
+ */
+export async function setMemberDepartment(formData: FormData) {
+  const session = await requireSession();
+  if (!session.isAdmin) return;
+
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const raw = formData.get("department");
+  const department = raw === "" || raw === null ? null : raw;
+  if (department !== null && !isDepartment(department)) return;
+
+  const supabase = await createClient();
+  await supabase.from("profiles").update({ department }).eq("id", id);
+
+  revalidatePath("/team");
+  revalidatePath("/tasks");
+}
+
 export async function updateTeamMember(
   _prevState: FormState,
   formData: FormData,

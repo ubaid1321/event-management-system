@@ -3,7 +3,10 @@
 import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 
-import { updateTeamMember } from "@/app/(app)/team/actions";
+import {
+  setMemberDepartment,
+  updateTeamMember,
+} from "@/app/(app)/team/actions";
 import { DEPARTMENTS, departmentMeta } from "@/lib/domain";
 import { emptyFormState } from "@/lib/form-state";
 import { initials } from "@/lib/people";
@@ -180,6 +183,31 @@ export function MemberRow({
       <span className="tnum font-mono text-[0.6875rem] tracking-[0.08em] text-ink-3">
         {openTaskCount} open
       </span>
+
+      {/* Assigning a team is the common case, so it happens right here. */}
+      {isAdmin ? (
+        <form action={setMemberDepartment}>
+          <input type="hidden" name="id" value={member.id} />
+          <select
+            name="department"
+            defaultValue={member.department ?? ""}
+            aria-label={`Team for ${name}`}
+            onChange={(event) => event.currentTarget.form?.requestSubmit()}
+            className={`h-8 cursor-pointer rounded-[var(--radius-control)] border px-2 font-mono text-[0.6875rem] tracking-[0.06em] ${
+              member.department
+                ? "border-line-strong bg-surface text-ink-2"
+                : "border-brass/50 bg-brass-soft text-brass"
+            }`}
+          >
+            <option value="">Pick a team</option>
+            {DEPARTMENTS.map((department) => (
+              <option key={department.value} value={department.value}>
+                {department.label}
+              </option>
+            ))}
+          </select>
+        </form>
+      ) : null}
 
       {isAdmin ? (
         <button

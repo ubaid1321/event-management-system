@@ -29,7 +29,12 @@ export default async function TeamPage() {
     );
   }
 
-  const groups: { key: string; label: string; members: TeamMember[] }[] = [
+  const groups: {
+    key: string;
+    label: string;
+    note?: string;
+    members: TeamMember[];
+  }[] = [
     ...DEPARTMENTS.map((department) => ({
       key: department.value,
       label: department.label,
@@ -38,6 +43,10 @@ export default async function TeamPage() {
     {
       key: "unassigned",
       label: "No team yet",
+      // Every new account starts here, so say what to do about it.
+      note: session.isAdmin
+        ? "Pick a team for each person so their work lands on the right board."
+        : "An admin still needs to place these people on a team.",
       members: team.filter((member) => !member.department),
     },
   ].filter((group) => group.members.length > 0);
@@ -62,10 +71,17 @@ export default async function TeamPage() {
         <div className="flex flex-col gap-4">
           {groups.map((group) => (
             <Card key={group.key}>
-              <header className="flex items-center justify-between border-b border-line px-5 py-4">
-                <h2 className="font-display text-[1.125rem] font-medium text-ink">
-                  {group.label}
-                </h2>
+              <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4">
+                <div>
+                  <h2 className="font-display text-[1.125rem] font-medium text-ink">
+                    {group.label}
+                  </h2>
+                  {group.note ? (
+                    <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-3">
+                      {group.note}
+                    </p>
+                  ) : null}
+                </div>
                 <span className="tnum font-mono text-[0.6875rem] tracking-[0.1em] text-ink-3">
                   {group.members.length}
                 </span>
