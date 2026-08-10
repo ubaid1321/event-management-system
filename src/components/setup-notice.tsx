@@ -41,7 +41,7 @@ export function SetupNotice() {
               key={step.title}
               className="flex gap-5 border-t border-rail-line py-5 last:border-b"
             >
-              <span className="tnum font-mono text-[0.75rem] text-brass">
+              <span className="tnum font-mono text-[0.75rem] text-brand">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>

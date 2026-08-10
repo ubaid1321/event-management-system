@@ -47,10 +47,12 @@ export const DEPARTMENTS: DepartmentMeta[] = [
     value: "developer",
     label: "Developer",
     remit: "Site, forms, integrations and this dashboard.",
-    text: "text-azure",
-    bg: "bg-azure-soft",
-    border: "border-azure/35",
-    dot: "bg-azure",
+    // Teal, not blue: blue now belongs to the brand accent, and a blue team
+    // dot beside a blue link would read as the same thing.
+    text: "text-teal",
+    bg: "bg-teal-soft",
+    border: "border-teal/35",
+    dot: "bg-teal",
   },
   {
     value: "marketing",
@@ -90,7 +92,7 @@ export const TASK_STATUSES: TaskStatusMeta[] = [
     value: "in_progress",
     label: "In progress",
     hint: "Someone is on it",
-    className: "bg-azure-soft text-azure border-azure/35",
+    className: "bg-brand-soft text-brand border-brand/35",
   },
   {
     value: "in_review",

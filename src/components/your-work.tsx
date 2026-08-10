@@ -52,14 +52,14 @@ function Panel({
 }: {
   title: string;
   count: number;
-  tone: "brass" | "plain";
+  tone: "brand" | "plain";
   children: React.ReactNode;
 }) {
   return (
     <section
       className={`rounded-[var(--radius-card)] border bg-surface p-5 ${
-        tone === "brass" && count > 0
-          ? "border-brass/45"
+        tone === "brand" && count > 0
+          ? "border-brand/45"
           : "border-line"
       }`}
     >
@@ -67,7 +67,7 @@ function Panel({
         <h2 className="label">{title}</h2>
         <span
           className={`tnum font-mono text-[0.6875rem] tracking-[0.1em] ${
-            tone === "brass" && count > 0 ? "text-brass" : "text-ink-3"
+            tone === "brand" && count > 0 ? "text-brand" : "text-ink-3"
           }`}
         >
           {count}
@@ -95,7 +95,7 @@ export function YourWork({ work, name }: { work: MyWork; name: string }) {
         </h2>
         <Link
           href="/tasks"
-          className="font-mono text-[0.6875rem] tracking-[0.14em] text-brass uppercase underline decoration-brass/40 underline-offset-4 hover:decoration-brass"
+          className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand uppercase underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
         >
           Whole board
         </Link>
@@ -111,7 +111,7 @@ export function YourWork({ work, name }: { work: MyWork; name: string }) {
           <Panel
             title="Waiting on your review"
             count={work.toReview.length}
-            tone="brass"
+            tone="brand"
           >
             {work.toReview.length === 0 ? (
               <p className="text-[0.875rem] leading-relaxed text-ink-3">

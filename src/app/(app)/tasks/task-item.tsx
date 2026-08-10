@@ -157,7 +157,7 @@ export function TaskItem({
             ) : null}
 
             {inReview && reviewerName ? (
-              <span className="text-brass">With {reviewerName}</span>
+              <span className="text-brand">With {reviewerName}</span>
             ) : null}
 
             {task.completed_at ? (

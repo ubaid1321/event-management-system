@@ -119,7 +119,7 @@ export function MemberRow({
               type="checkbox"
               name="is_active"
               defaultChecked={member.is_active}
-              className="h-4 w-4 accent-[var(--brass)]"
+              className="h-4 w-4 accent-[var(--brand)]"
             />
             Working on this event
           </label>
@@ -168,7 +168,7 @@ export function MemberRow({
             </span>
           ) : null}
           {member.role === "admin" ? (
-            <span className="rounded-full border border-brass/35 bg-brass-soft px-2 py-0.5 font-mono text-[0.5625rem] tracking-[0.12em] text-brass uppercase">
+            <span className="rounded-full border border-brand/35 bg-brand-soft px-2 py-0.5 font-mono text-[0.5625rem] tracking-[0.12em] text-brand uppercase">
               Admin
             </span>
           ) : null}
@@ -196,7 +196,7 @@ export function MemberRow({
             className={`h-8 cursor-pointer rounded-[var(--radius-control)] border px-2 font-mono text-[0.6875rem] tracking-[0.06em] ${
               member.department
                 ? "border-line-strong bg-surface text-ink-2"
-                : "border-brass/50 bg-brass-soft text-brass"
+                : "border-brand/50 bg-brand-soft text-brand"
             }`}
           >
             <option value="">Pick a team</option>

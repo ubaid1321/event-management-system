@@ -159,7 +159,7 @@ export function EventForm({
             label="Timezone"
             htmlFor="timezone"
             className="sm:col-span-2"
-            hint="The times below are wall-clock times at the venue."
+            hint="The times below are wall-clock times at the venue. Asia/Kolkata is IST."
           >
             <select
               id="timezone"

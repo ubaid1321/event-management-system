@@ -48,7 +48,7 @@ export function NavRail({
     <span
       aria-hidden
       className={`h-3.5 w-px shrink-0 transition-colors ${
-        isActive(pathname, href) ? "bg-brass" : "bg-rail-line"
+        isActive(pathname, href) ? "bg-brand" : "bg-rail-line"
       }`}
     />
   );
@@ -110,7 +110,7 @@ export function NavRail({
         <p className="flex items-center gap-2 truncate text-[0.875rem] text-rail-ink">
           {userName}
           {isAdmin ? (
-            <span className="rounded-full border border-brass/40 px-1.5 py-0.5 font-mono text-[0.5625rem] tracking-[0.12em] text-brass uppercase">
+            <span className="rounded-full border border-brand/40 px-1.5 py-0.5 font-mono text-[0.5625rem] tracking-[0.12em] text-brand uppercase">
               Admin
             </span>
           ) : null}
@@ -119,7 +119,7 @@ export function NavRail({
         <form action={signOut}>
           <button
             type="submit"
-            className="mt-3 font-mono text-[0.6875rem] tracking-[0.14em] text-rail-ink-2 uppercase transition-colors hover:text-brass"
+            className="mt-3 font-mono text-[0.6875rem] tracking-[0.14em] text-rail-ink-2 uppercase transition-colors hover:text-brand"
           >
             Sign out
           </button>

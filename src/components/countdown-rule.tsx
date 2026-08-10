@@ -41,7 +41,7 @@ export function CountdownRule({
           This event has no dates yet.{" "}
           <Link
             href={`/events/${slug}`}
-            className="text-brass underline decoration-brass/40 underline-offset-4 hover:decoration-brass"
+            className="text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
           >
             Set the dates
           </Link>{" "}
@@ -102,19 +102,19 @@ export function CountdownRule({
           />
           <div
             aria-hidden
-            className="absolute bottom-0 left-0 h-px origin-left bg-brass sweep"
+            className="absolute bottom-0 left-0 h-px origin-left bg-brand sweep"
             style={{ width: `${progress}%` }}
           />
           <div
             aria-hidden
-            className="absolute bottom-0 h-6 w-px bg-brass"
+            className="absolute bottom-0 h-6 w-px bg-brand"
             style={{ left: `${progress}%` }}
           />
         </div>
 
         <div className="mt-3 flex justify-between font-mono text-[0.6875rem] tracking-[0.1em] text-rail-ink-2 uppercase">
           <span>Planning began {formatDate(createdAt, timezone)}</span>
-          <span className="text-brass">{formatDate(startsAt, timezone)}</span>
+          <span className="text-brand">{formatDate(startsAt, timezone)}</span>
         </div>
       </div>
     </Shell>

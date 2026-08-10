@@ -58,7 +58,7 @@ const STATUS_COPY: Record<EventStatus, { label: string; className: string }> = {
   },
   live: {
     label: "Happening now",
-    className: "bg-brass-soft text-brass border-brass/35",
+    className: "bg-brand-soft text-brand border-brand/35",
   },
   closed: {
     label: "Registration closed",
@@ -97,7 +97,7 @@ export function StatTile({
       <p className="label">{label}</p>
       <p
         className={`tnum font-display mt-4 text-[2.25rem] leading-none font-medium ${
-          accent ? "text-brass" : "text-ink"
+          accent ? "text-brand" : "text-ink"
         }`}
       >
         {value}
@@ -110,7 +110,7 @@ export function StatTile({
       {accent ? (
         <span
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-px origin-left bg-brass sweep"
+          className="absolute inset-x-0 bottom-0 h-px origin-left bg-brand sweep"
         />
       ) : null}
     </div>

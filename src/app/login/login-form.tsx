@@ -12,7 +12,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="mt-2 h-11 w-full rounded-[var(--radius-control)] bg-brass font-mono text-[0.6875rem] tracking-[0.16em] text-white uppercase transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55"
+      className="mt-2 h-11 w-full rounded-[var(--radius-control)] bg-brand font-mono text-[0.6875rem] tracking-[0.16em] text-white uppercase transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55"
     >
       {pending ? "Signing in…" : "Sign in"}
     </button>

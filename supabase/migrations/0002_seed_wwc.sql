@@ -10,5 +10,5 @@
 -- =============================================================================
 
 insert into public.events (slug, name, status, timezone)
-values ('wwc', 'World Wisdom Connect', 'planning', 'UTC')
+values ('wwc', 'World Wisdom Connect', 'planning', 'Asia/Kolkata')
 on conflict (slug) do nothing;

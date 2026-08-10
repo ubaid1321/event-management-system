@@ -113,7 +113,7 @@ export default async function OverviewPage() {
             <h2 className="label">Work by team</h2>
             <Link
               href="/tasks"
-              className="font-mono text-[0.6875rem] tracking-[0.14em] text-brass uppercase underline decoration-brass/40 underline-offset-4 hover:decoration-brass"
+              className="font-mono text-[0.6875rem] tracking-[0.14em] text-brand uppercase underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
             >
               Open board
             </Link>
@@ -122,7 +122,7 @@ export default async function OverviewPage() {
           {taskStats.total === 0 ? (
             <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-3">
               No tasks yet.{" "}
-              <Link href="/tasks" className="text-brass underline decoration-brass/40 underline-offset-4">
+              <Link href="/tasks" className="text-brand underline decoration-brand/40 underline-offset-4">
                 Add the first one
               </Link>{" "}
               and it will show up here.
@@ -208,7 +208,7 @@ export default async function OverviewPage() {
           ) : null}
           <Link
             href={`/events/${event.slug}`}
-            className="mt-5 inline-block font-mono text-[0.6875rem] tracking-[0.14em] text-brass uppercase underline decoration-brass/40 underline-offset-4 hover:decoration-brass"
+            className="mt-5 inline-block font-mono text-[0.6875rem] tracking-[0.14em] text-brand uppercase underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
           >
             Open event details
           </Link>

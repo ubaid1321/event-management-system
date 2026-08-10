@@ -67,6 +67,9 @@ export function formatDateRange(
 /** Everything VMI Collective sells is priced in Indian rupees. */
 export const CURRENCY = "INR";
 
+/** VMI Collective runs on IST. Asia/Kolkata is the canonical name for it. */
+export const DEFAULT_TIMEZONE = "Asia/Kolkata";
+
 export function formatMoney(paise: number, currency: string = CURRENCY) {
   try {
     // en-IN so large amounts group the Indian way: ₹1,25,000 not ₹125,000.
@@ -199,20 +202,19 @@ export function progressBetween(
  */
 export function listTimeZones(current?: string | null): string[] {
   const supported = Intl.supportedValuesOf?.("timeZone") ?? [];
-  const fallback = [
-    "Asia/Kolkata",
-    "Asia/Calcutta",
-    "Europe/London",
-    "America/New_York",
-  ];
+  const fallback = ["Europe/London", "America/New_York", "America/Los_Angeles"];
 
-  const zones = new Set<string>(
-    supported.length > 0 ? supported : fallback,
-  );
-  zones.add("Asia/Kolkata");
+  const zones = new Set<string>(supported.length > 0 ? supported : fallback);
   if (current) zones.add(current);
-  zones.delete("UTC");
 
-  // UTC first: it is the default and the one people reach for deliberately.
-  return ["UTC", ...[...zones].sort((a, b) => a.localeCompare(b))];
+  // Asia/Calcutta is Node's legacy alias for the same +05:30 zone. Listing
+  // both would offer the reader a meaningless choice, so keep the modern name.
+  zones.delete("Asia/Calcutta");
+
+  // Pinned to the top: the house timezone first, then UTC. Both are removed
+  // from the alphabetical tail so neither appears twice.
+  const pinned = [DEFAULT_TIMEZONE, "UTC"];
+  for (const zone of pinned) zones.delete(zone);
+
+  return [...pinned, ...[...zones].sort((a, b) => a.localeCompare(b))];
 }

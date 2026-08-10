@@ -2,7 +2,8 @@
 
 /* ==========================================================================
    VMI Collective design tokens
-   Direction: "instrument". Cool paper ground, indigo ink chrome, brass accent.
+   Direction: "instrument". Cool paper ground, brand-navy chrome, sky accent,
+   both taken from vmi-collective.in (#12355B primary, #0EA5E9 accent).
    Type: Fraunces (display, restrained) / Archivo (UI) / IBM Plex Mono (data).
    ========================================================================== */
 
@@ -17,24 +18,35 @@
   --ink-2: #47526a;
   --ink-3: #78849b;
 
+  /* Accent, from vmi-collective.in. The site pairs navy #12355B with sky
+     #0EA5E9; on white the sky is too light for text, so the accent steps down
+     to sky-700 and keeps the brighter tone for dark surfaces. */
+  --brand: #0369a1;
+  --brand-soft: #e0f2fe;
+  /* Text that sits ON --brand. Flips with the accent so the pair always
+     clears contrast: white on the dark sky-700, deep navy on sky-400. */
+  --brand-ink: #ffffff;
+
+  /* Team colours. Kept off blue so no team reads as the brand accent. */
   --brass: #9a6b15;
   --brass-soft: #f2e7d1;
   --jade: #1b6e52;
   --jade-soft: #dcefe6;
   --clay: #9e3a26;
   --clay-soft: #f6e2dd;
-  --azure: #23557f;
-  --azure-soft: #dee9f3;
+  --teal: #0f766e;
+  --teal-soft: #d7efec;
   --plum: #6d3a72;
   --plum-soft: #ece0ee;
 
-  --rail: #111a2b;
-  --rail-2: #0b1322;
-  --rail-ink: #e8ebf1;
-  --rail-ink-2: #8e9ab2;
-  --rail-line: #253148;
+  /* Chrome, straight from the brand navy and its hover shade. */
+  --rail: #12355b;
+  --rail-2: #0d2743;
+  --rail-ink: #e8eef6;
+  --rail-ink-2: #94a9c4;
+  --rail-line: #2a4a72;
 
-  --focus: #9a6b15;
+  --focus: #0369a1;
 
   --radius-card: 10px;
   --radius-control: 6px;
@@ -52,24 +64,27 @@
     --ink-2: #9fadc4;
     --ink-3: #6e7e99;
 
+    --brand: #38bdf8;
+    --brand-soft: #0c2942;
+    --brand-ink: #06293f;
     --brass: #d9a441;
     --brass-soft: #2b2417;
     --jade: #4fbf93;
     --jade-soft: #14291f;
     --clay: #e0725a;
     --clay-soft: #2c1a15;
-    --azure: #6fa8dc;
-    --azure-soft: #15212e;
+    --teal: #2dd4bf;
+    --teal-soft: #10312e;
     --plum: #c294c9;
     --plum-soft: #241a26;
 
-    --rail: #070d18;
-    --rail-2: #050a13;
-    --rail-ink: #e9edf5;
-    --rail-ink-2: #7e8ca6;
-    --rail-line: #1b2537;
+    --rail: #0a1f38;
+    --rail-2: #071729;
+    --rail-ink: #e9eef6;
+    --rail-ink-2: #8ba3c0;
+    --rail-line: #1c3554;
 
-    --focus: #d9a441;
+    --focus: #38bdf8;
   }
 }
 
@@ -84,24 +99,27 @@
   --ink-2: #9fadc4;
   --ink-3: #6e7e99;
 
+  --brand: #38bdf8;
+  --brand-soft: #0c2942;
+  --brand-ink: #06293f;
   --brass: #d9a441;
   --brass-soft: #2b2417;
   --jade: #4fbf93;
   --jade-soft: #14291f;
   --clay: #e0725a;
   --clay-soft: #2c1a15;
-  --azure: #6fa8dc;
-  --azure-soft: #15212e;
+  --teal: #2dd4bf;
+  --teal-soft: #10312e;
   --plum: #c294c9;
   --plum-soft: #241a26;
 
-  --rail: #070d18;
-  --rail-2: #050a13;
-  --rail-ink: #e9edf5;
-  --rail-ink-2: #7e8ca6;
-  --rail-line: #1b2537;
+  --rail: #0a1f38;
+  --rail-2: #071729;
+  --rail-ink: #e9eef6;
+  --rail-ink-2: #8ba3c0;
+  --rail-line: #1c3554;
 
-  --focus: #d9a441;
+  --focus: #38bdf8;
 }
 
 @theme inline {
@@ -113,14 +131,17 @@
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
-  --color-brass: var(--brass);
-  --color-brass-soft: var(--brass-soft);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
   --color-jade: var(--jade);
   --color-jade-soft: var(--jade-soft);
   --color-clay: var(--clay);
   --color-clay-soft: var(--clay-soft);
-  --color-azure: var(--azure);
-  --color-azure-soft: var(--azure-soft);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
   --color-plum: var(--plum);
   --color-plum-soft: var(--plum-soft);
   --color-rail: var(--rail);
@@ -195,7 +216,8 @@ body {
   }
 
   .btn-primary {
-    @apply bg-brass text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55;
+    @apply bg-brand hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55;
+    color: var(--brand-ink);
   }
 
   .btn-secondary {
@@ -240,14 +262,16 @@ body {
 
 /*
  * Surfaces that stay dark in every theme (login, setup, the countdown band).
- * The light-theme brass is a deep mustard that goes muddy on near-black, so
+ * The light-theme accents are dark by design that goes muddy on near-black, so
  * these scopes borrow the dark-theme accents regardless of the active theme.
  */
 .on-dark {
+  --brand: #38bdf8;
+  --brand-ink: #06293f;
   --brass: #d9a441;
   --clay: #e0725a;
   --jade: #4fbf93;
-  --focus: #d9a441;
+  --focus: #38bdf8;
 }
 
 @media (prefers-reduced-motion: no-preference) {

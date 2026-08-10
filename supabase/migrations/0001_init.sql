@@ -77,7 +77,9 @@ create table if not exists public.events (
                        check (status in ('planning', 'open', 'live', 'closed', 'archived')),
   starts_at          timestamptz,
   ends_at            timestamptz,
-  timezone           text not null default 'UTC',
+  -- VMI Collective runs on IST. Times in the UI are wall-clock in this zone;
+  -- starts_at / ends_at stay UTC instants.
+  timezone           text not null default 'Asia/Kolkata',
   venue_name         text,
   venue_address      text,
   city               text,

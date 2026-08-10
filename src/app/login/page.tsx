@@ -31,7 +31,7 @@ export default async function LoginPage({
       <div aria-hidden className="meridian-field absolute inset-0" />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-brass/[0.07] to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-brand/[0.07] to-transparent"
       />
 
       <div className="relative w-full max-w-[25rem] rise">
